@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Meanbee_Core>
+            <version>1.0.0</version>
+        </Meanbee_Core>
+    </modules>
+    <global>
+        <helpers>
+            <meanbee_core>
+                <class>Meanbee_Core_Helper</class>
+            </meanbee_core>
+        </helpers>
+    </global>
+</config>
+
