@@ -24,7 +24,7 @@ before_script:
   - wget http://www.phing.info/get/phing-latest.phar
   - mv phing-latest.phar phing.phar
   - chmod +x phing.phar
-  - mkdir bin && cd bin && wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
+  - mkdir bin && cd bin && wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman && cd ..
   - chmod +x bin/modman
 
 script:
