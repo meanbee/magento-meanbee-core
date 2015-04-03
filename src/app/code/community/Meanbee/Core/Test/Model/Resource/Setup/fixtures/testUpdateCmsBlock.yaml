@@ -1,0 +1,12 @@
+tables:
+  cms_block:
+    -
+      block_id: 1
+      title: Test CMS Block
+      identifier: test-cms-block
+      content: Test content
+      is_active: 1
+  cms_block_store:
+    -
+      block_id: 1
+      store_id: 0
