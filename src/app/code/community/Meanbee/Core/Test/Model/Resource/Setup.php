@@ -43,6 +43,20 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
     /**
      * @test
      * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testCreateCmsBlockAlreadyExists()
+    {
+        $this->model->createCmsBlock(
+            "test-cms-block",
+            "Test Title",
+            "Test content"
+        );
+    }
+
+    /**
+     * @test
+     * @loadFixture
      */
     public function testUpdateCmsBlock()
     {
@@ -55,6 +69,16 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
         $block = Mage::getModel("cms/block")->load("test-cms-block");
 
         $this->assertEquals("New content", $block->getContent(), "CMS block contains incorrect content after update.");
+    }
+
+    /**
+     * @test
+     * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testUpdateCmsBlockDoesNotExist()
+    {
+        $this->model->updateCmsBlock("test-cms-block", array("content" => "New content"));
     }
 
     /**
@@ -81,6 +105,21 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
     /**
      * @test
      * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testCreateCmsPageAlreadyExists()
+    {
+        $this->model->createCmsPage(
+            "test-cms-page",
+            "Test Title",
+            "Test content",
+            "one_column"
+        );
+    }
+
+    /**
+     * @test
+     * @loadFixture
      */
     public function testUpdateCmsPage()
     {
@@ -98,6 +137,19 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
 
         $this->assertEquals("New content", $page->getContent(), "CMS page contains incorrect content after update.");
         $this->assertEquals("two_columns_right", $page->getRootTemplate(), "CMS page contains incorrect root template after update.");
+    }
+
+    /**
+     * @test
+     * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testUpdateCmsPageDoesNotExist()
+    {
+        $this->model->updateCmsPage("test-cms-page", array(
+            "content" => "New content",
+            "root_template" => "two_columns_right"
+        ));
     }
 
     /**
@@ -128,6 +180,23 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
     /**
      * @test
      * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testCreateTransactionalEmailAlreadyExists()
+    {
+        $this->model->createTransactionalEmail(
+            "Test Email",
+            "Test Subject",
+            "Test content",
+            "",
+            null,
+            "sales_email_order_template"
+        );
+    }
+
+    /**
+     * @test
+     * @loadFixture
      */
     public function testUpdateTransactionalEmail()
     {
@@ -142,5 +211,17 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
         $email = Mage::getModel("core/email_template")->loadByCode("Test Email");
 
         $this->assertEquals("New content", $email->getTemplateText(), "Email contains incorrect content after update.");
+    }
+
+    /**
+     * @test
+     * @loadFixture
+     * @expectedException Mage_Core_Exception
+     */
+    public function testUpdateTransactionalEmailDoesNotExist()
+    {
+        $this->model->updateTransactionalEmail("Test Email", array(
+            "template_text" => "New content"
+        ));
     }
 }
