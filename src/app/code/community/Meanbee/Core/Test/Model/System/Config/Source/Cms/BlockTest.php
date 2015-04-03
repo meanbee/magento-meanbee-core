@@ -1,13 +1,13 @@
 <?php
 
-class Meanbee_Core_Test_Model_System_Config_Source_StaticBlockTest extends EcomDev_PHPUnit_Test_Case
+class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends EcomDev_PHPUnit_Test_Case
 {
-    /** @var Meanbee_Core_Model_System_Config_Source_StaticBlock */
+    /** @var Meanbee_Core_Model_System_Config_Source_Cms_Block */
     protected $model;
 
     public function setUp()
     {
-        $this->model = new Meanbee_Core_Model_System_Config_Source_StaticBlock();
+        $this->model = new Meanbee_Core_Model_System_Config_Source_Cms_Block();
     }
 
     public function tearDown()

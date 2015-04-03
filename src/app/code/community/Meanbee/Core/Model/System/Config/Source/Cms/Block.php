@@ -1,8 +1,8 @@
 <?php
 /**
- * Class Meanbee_Core_Model_System_Config_Source_StaticBlock
+ * Class Meanbee_Core_Model_System_Config_Source_Cms_Block
  */
-class Meanbee_Core_Model_System_Config_Source_StaticBlock implements Meanbee_Core_Model_System_Config_SourceModel
+class Meanbee_Core_Model_System_Config_Source_Cms_Block implements Meanbee_Core_Model_System_Config_SourceModel
 {
     /**
      * Return a source model array containing all static blocks defined in the system.
