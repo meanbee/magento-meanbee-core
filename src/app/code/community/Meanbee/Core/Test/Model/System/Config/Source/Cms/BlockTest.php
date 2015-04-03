@@ -1,6 +1,6 @@
 <?php
 
-class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends EcomDev_PHPUnit_Test_Case
+class Meanbee_Core_Test_Model_System_Config_Source_Cms_BlockTest extends EcomDev_PHPUnit_Test_Case
 {
     /** @var Meanbee_Core_Model_System_Config_Source_Cms_Block */
     protected $model;
@@ -19,14 +19,31 @@ class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends E
     /**
      * @test
      */
-    public function testEmptyWhenNoStaticBlocks()
+    public function testOnlyDefaultValueWhenNoStaticBlocks()
     {
         $this->deleteAllStaticBlocks();
 
         $static_blocks = $this->model->toOptionArray();
 
         $this->assertInternalType('array', $static_blocks);
-        $this->assertCount(0, $this->model->toOptionArray());
+        $this->assertCount(1, $this->model->toOptionArray());
+    }
+
+    /**
+     * @test
+     */
+    public function testDefaultValueHasNoValue()
+    {
+        $this->deleteAllStaticBlocks();
+
+        $static_blocks = $this->model->toOptionArray();
+
+        $static_block = $static_blocks[0];
+
+        $this->assertArrayHasKey('label', $static_block);
+        $this->assertArrayHasKey('value', $static_block);
+
+        $this->assertEquals("", $static_block['value']);
     }
 
     /**
@@ -38,7 +55,7 @@ class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends E
         $static_blocks = $this->model->toOptionArray();
 
         $this->assertInternalType('array', $static_blocks);
-        $this->assertCount(3, $this->model->toOptionArray());
+        $this->assertCount(4, $this->model->toOptionArray());
     }
 
     /**
@@ -50,9 +67,9 @@ class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends E
         $static_blocks = $this->model->toOptionArray();
 
         $this->assertInternalType('array', $static_blocks);
-        $this->assertCount(1, $this->model->toOptionArray());
+        $this->assertCount(2, $this->model->toOptionArray());
 
-        $static_block = $static_blocks[0];
+        $static_block = $static_blocks[1];
 
         $this->assertArrayHasKey('label', $static_block);
         $this->assertArrayHasKey('value', $static_block);
@@ -70,7 +87,7 @@ class Meanbee_Core_Test_Model_System_Config_Source_Cms_StaticBlockTest extends E
         $static_blocks = $this->model->toOptionArray();
 
         $this->assertInternalType('array', $static_blocks);
-        $this->assertCount(2, $this->model->toOptionArray());
+        $this->assertCount(3, $this->model->toOptionArray());
     }
 
     protected function deleteAllStaticBlocks()
