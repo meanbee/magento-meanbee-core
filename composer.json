@@ -1,4 +1,23 @@
 {
+    "name": "meanbee/core",
+    "type": "magento-module",
+    "description": "Core Magento utility library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nick Jones",
+            "email": "nick.jones@meanbee.com"
+        },
+        {
+            "name": "Darren Belding",
+            "email": "darren.belding@meanbee.com"
+        },
+        {
+            "name": "Tomas Gerulaitis",
+            "email": "tomas.gerulaitis@meanbee.com"
+        }
+    ],
+
     "require": {
         "php": ">=5.3.0"
     },
