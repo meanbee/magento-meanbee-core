@@ -12,5 +12,12 @@
             </meanbee_core>
         </helpers>
     </global>
+    <phpunit>
+        <suite>
+            <modules>
+                <Meanbee_Core/>
+            </modules>
+        </suite>
+    </phpunit>
 </config>
 
