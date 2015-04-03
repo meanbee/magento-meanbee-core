@@ -15,19 +15,52 @@ class Meanbee_Core_Model_Resource_Setup extends Mage_Catalog_Model_Resource_Setu
      */
     public function createCmsBlock($identifier, $title, $content, $stores = array(0))
     {
+        $current_store = Mage::app()->getStore();
+        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        Mage::getModel("cms/block")
+            ->setData(array(
+                "identifier" => $identifier,
+                "title"      => $title,
+                "content"    => $content,
+                "is_active"  => 1,
+                "stores"     => $stores
+            ))
+            ->save();
+
+        Mage::app()->setCurrentStore($current_store);
         return $this;
     }
 
     /**
      * Update an existing CMS block.
      *
-     * @param string $identifier
-     * @param array  $data A key => value list of new data to assign to the block.
+     * @param string   $identifier
+     * @param array    $data     A key => value list of new data to assign to the block.
+     * @param int|null $storeId  Store the block is currently assigned to
      *
      * @return $this
      */
-    public function updateCmsBlock($identifier, $data)
+    public function updateCmsBlock($identifier, $data, $storeId = null)
     {
+        $current_store = Mage::app()->getStore();
+        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        $block = Mage::getModel("cms/block");
+        if ($storeId) {
+            $block->setStoreId($storeId);
+        }
+        $block->load($identifier);
+
+        if ($block->getId()) {
+            $block
+                ->addData($data)
+                ->save();
+        } else {
+            Mage::throwException(sprintf("Can not update CMS block: CMS block '%s' does not exist.", $identifier));
+        }
+
+        Mage::app()->setCurrentStore($current_store);
         return $this;
     }
 
