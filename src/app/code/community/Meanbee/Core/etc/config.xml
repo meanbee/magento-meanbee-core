@@ -15,7 +15,7 @@
     <phpunit>
         <suite>
             <modules>
-                <Meanbee_Core />
+                <Meanbee_Core/>
             </modules>
         </suite>
     </phpunit>
