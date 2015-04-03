@@ -1,0 +1,19 @@
+tables:
+  cms_block:
+    - block_id: 1
+      title: Test CMS Block 1
+      identifier: test_block_1
+    - block_id: 2
+      title: Test CMS Block 2
+      identifier: test_block_2
+    - block_id: 3
+      title: Test CMS Block 3
+      identifier: test_block_3
+
+  cms_block_store:
+    - block_id: 1
+      store_id: 0
+    - block_id: 2
+      store_id: 0
+    - block_id: 3
+      store_id: 0
