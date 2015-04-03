@@ -111,6 +111,7 @@ class Meanbee_Core_Test_Model_Resource_Setup extends EcomDev_PHPUnit_Test_Case
             "Test Subject",
             "Test content",
             "",
+            null,
             "sales_email_order_template"
         );
 

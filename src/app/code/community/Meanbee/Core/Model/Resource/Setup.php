@@ -147,11 +147,13 @@ class Meanbee_Core_Model_Resource_Setup extends Mage_Catalog_Model_Resource_Setu
     /**
      * Create a new transactional email template.
      *
-     * @param string $templateCode
-     * @param string $templateSubject
-     * @param string $templateText
-     * @param string $templateStyles
-     * @param string $originalTemplateCode
+     * @param string   $templateCode
+     * @param string   $templateSubject
+     * @param string   $templateText
+     * @param int|null $templateType If null when original template is specified,
+     *                               will use the same type as original template.
+     * @param string   $templateStyles
+     * @param string   $originalTemplateCode
      *
      * @return $this
      */
@@ -159,9 +161,41 @@ class Meanbee_Core_Model_Resource_Setup extends Mage_Catalog_Model_Resource_Setu
         $templateCode,
         $templateSubject,
         $templateText,
+        $templateType = Mage_Core_Model_Email_Template::TYPE_HTML,
         $templateStyles = "",
         $originalTemplateCode = ""
     ) {
+        $current_store = Mage::app()->getStore();
+        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        $template = Mage::getModel("core/email_template");
+
+        $template->setData(array(
+            "template_code" => $templateCode,
+            "template_subject" => $templateSubject,
+            "template_text" => $templateText,
+            "template_type" => $templateType,
+            "template_styles" => $templateStyles
+        ));
+
+        if ($originalTemplateCode) {
+            $template->setOrigTemplateCode($originalTemplateCode);
+
+            $originalTemplate = Mage::getModel("core/email_template")->loadDefault($originalTemplateCode);
+
+            if ($originalTemplate->getId()) {
+                if (!$templateType) {
+                    $template->setTemplateType($originalTemplate->getTemplateType());
+                }
+                $template->setOrigTemplateVariables($originalTemplate->getOrigTemplateVariables());
+            } else {
+                Mage::throwException(sprintf("Unable to create transactional email: Original email template '%s' does not exist", $originalTemplateCode));
+            }
+        }
+
+        $template->save();
+
+        Mage::app()->setCurrentStore($current_store);
         return $this;
     }
 
@@ -175,6 +209,20 @@ class Meanbee_Core_Model_Resource_Setup extends Mage_Catalog_Model_Resource_Setu
      */
     public function updateTransactionalEmail($code, $data)
     {
+        $current_store = Mage::app()->getStore();
+        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        $template = Mage::getModel("core/email_template")->loadByCode($code);
+
+        if ($template->getId()) {
+            $template
+                ->addData($data)
+                ->save();
+        } else {
+            Mage::throwException(sprintf("Unable to update transactional email: Email template '%s' does not exist.", $code));
+        }
+
+        Mage::app()->setCurrentStore($current_store);
         return $this;
     }
 }
