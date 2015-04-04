@@ -1,0 +1,13 @@
+tables:
+  cms_page:
+    -
+      page_id: 1
+      identifier: test-cms-page
+      title: Test Title
+      content: Test content
+      root_template: one_column
+      is_active: 1
+  cms_page_store:
+    -
+      page_id: 1
+      store_id: 0
