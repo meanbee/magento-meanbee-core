@@ -28,6 +28,16 @@
                 <class>Meanbee_Core_Helper</class>
             </meanbee_core>
         </helpers>
+        <blocks>
+            <meanbee_core>
+                <class>Meanbee_Core_Block</class>
+            </meanbee_core>
+            <customer>
+                <rewrite>
+                    <account_navigation>Meanbee_Core_Block_Customer_Account_Navigation</account_navigation>
+                </rewrite>
+            </customer>
+        </blocks>
     </global>
     <phpunit>
         <suite>
