@@ -128,7 +128,7 @@ class Meanbee_Core_Model_Resource_Setup extends Mage_Catalog_Model_Resource_Setu
 
         $page = Mage::getModel("cms/page");
         if ($storeId) {
-            $page->getStoreId($storeId);
+            $page->setStoreId($storeId);
         }
         $page->load($identifier);
 
