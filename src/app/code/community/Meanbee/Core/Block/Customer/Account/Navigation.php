@@ -70,4 +70,112 @@ class Meanbee_Core_Block_Customer_Account_Navigation extends Mage_Customer_Block
 
         return $this;
     }
+
+    /**
+     * Adds a navigation link after another one.
+     *
+     * @param $name
+     * @param $after
+     * @param $path
+     * @param $label
+     * @param $urlParams
+     *
+     * @return $this
+     */
+    public function addLinkAfter($name, $after, $path, $label, $urlParams = array())
+    {
+        $oldLinks = $this->_links;
+        $newLinks = array();
+        $newName = $name;
+        foreach ($oldLinks as $name => $link) {
+            $newLinks[$name] = $link;
+            if ($name == $after) {
+                $newLinks[$newName] = new Varien_Object(array(
+                    'name'  => $name,
+                    'path'  => $path,
+                    'label' => $label,
+                    'url'   => $this->getUrl($path, $urlParams),
+                ));
+            }
+        }
+        $this->_links = $newLinks;
+
+        return $this;
+    }
+
+    /**
+     * Like {@see addLinkAfter}, but only if the $if parameter is set to true.
+     *
+     * @see addConditionalLink
+     *
+     * @param $name
+     * @param $after
+     * @param $path
+     * @param $label
+     * @param $if
+     * @param $urlParams
+     *
+     * @return $this
+     */
+    public function addConditionalLinkAfter($name, $after, $path, $label, $if, $urlParams = array())
+    {
+        if ($if) {
+            $this->addLinkAfter($name, $after, $path, $label, $urlParams);
+        }
+        return $this;
+    }
+
+    /**
+     * Adds a navigation link before another one.
+     *
+     * @param $name
+     * @param $before
+     * @param $path
+     * @param $label
+     * @param $urlParams
+     *
+     * @return $this
+     */
+    public function addLinkBefore($name, $before, $path, $label, $urlParams = array())
+    {
+        $oldLinks = $this->_links;
+        $newLinks = array();
+        $newName = $name;
+        foreach ($oldLinks as $name => $link) {
+            if ($name == $before) {
+                $newLinks[$newName] = new Varien_Object(array(
+                    'name'  => $name,
+                    'path'  => $path,
+                    'label' => $label,
+                    'url'   => $this->getUrl($path, $urlParams),
+                ));
+            }
+            $newLinks[$name] = $link;
+        }
+        $this->_links = $newLinks;
+
+        return $this;
+    }
+
+    /**
+     * Like {@see addLinkBefore}, but only if the $if parameter is set to true.
+     *
+     * @see addConditionalLink
+     *
+     * @param $name
+     * @param $after
+     * @param $path
+     * @param $label
+     * @param $if
+     * @param $urlParams
+     *
+     * @return $this
+     */
+    public function addConditionalLinkBefore($name, $after, $path, $label, $if, $urlParams = array())
+    {
+        if ($if) {
+            $this->addLinkBefore($name, $after, $path, $label, $urlParams);
+        }
+        return $this;
+    }
 }
